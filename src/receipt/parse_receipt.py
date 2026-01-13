@@ -56,9 +56,7 @@ def image_to_dict(image_path):
     print(keys)
     print(values)
 
-    data = {
-        "items": []
-    }
+    data = {"items": []}
     last_item = None
     # keys = keys[:-2]
     # values = values[:-2]

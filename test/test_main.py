@@ -16,7 +16,7 @@ def test_categorize_items_by_name():
     receipt_data = {
         "items": [
             {"name": "WH MK", "effective_price": 25.00},
-            {"name": "DUMMY PRODUCT", "effective_price": 40.00}
+            {"name": "DUMMY PRODUCT", "effective_price": 40.00},
         ]
     }
 
@@ -99,11 +99,7 @@ def test_image_to_dict_no_discounts(monkeypatch):
     5.92
     """
 
-    monkeypatch.setattr(
-        parse_receipt,
-        "image_to_text",
-        lambda _: fake_ocr_text
-    )
+    monkeypatch.setattr(parse_receipt, "image_to_text", lambda _: fake_ocr_text)
 
     result = parse_receipt.image_to_dict("fake.jpg")
 
@@ -185,10 +181,14 @@ def test_image_to_text(monkeypatch):
     monkeypatch.setattr(cv2, "cvtColor", lambda img, flag: img)
 
     # Patch cv2.bilateralFilter to just return the input (bypass actual filter)
-    monkeypatch.setattr(cv2, "bilateralFilter", lambda img, d, sigmaColor, sigmaSpace: img)
+    monkeypatch.setattr(
+        cv2, "bilateralFilter", lambda img, d, sigmaColor, sigmaSpace: img
+    )
 
     # Patch pytesseract.image_to_string to return a fixed string
-    monkeypatch.setattr(pytesseract, "image_to_string", lambda img: "Mocked OCR text")
+    monkeypatch.setattr(
+        pytesseract, "image_to_string", lambda img: "Mocked OCR text"
+    )
 
     result = parse_receipt.image_to_text("dummy_path.jpg")
     assert result == "Mocked OCR text"
