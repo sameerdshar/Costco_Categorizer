@@ -1,0 +1,4 @@
+config: r"""
+  --oem 3
+  --psm 6
+  -c tessedit_char_whitelist=ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789./-$"""
